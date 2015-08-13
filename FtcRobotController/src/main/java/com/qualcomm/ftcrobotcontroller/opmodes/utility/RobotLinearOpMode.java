@@ -16,6 +16,16 @@ public abstract class RobotLinearOpMode<T extends RobotHardware> extends LinearO
      */
     protected T robot;
 
+    public RobotLinearOpMode(){
+        try {
+            robot = (T) ((Class)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[0]).newInstance();
+        } catch (InstantiationException e) {
+            //handle error
+        } catch (IllegalAccessException e) {
+            //handle error
+        }
+    }
+
     /**
      * Linearly executes a series of commands.
      * Initializes <code>robot</code>, and then calls <code>initializeRobot()</code>,
@@ -26,14 +36,6 @@ public abstract class RobotLinearOpMode<T extends RobotHardware> extends LinearO
      */
     @Override
     public final void runOpMode() throws InterruptedException {
-        try {
-            robot = (T) ((Class)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[0]).newInstance();
-        } catch (InstantiationException e) {
-            //handle error
-        } catch (IllegalAccessException e) {
-            //handle error
-        }
-
         robot.instantiateHardware(hardwareMap);
 
         initializeRobot();

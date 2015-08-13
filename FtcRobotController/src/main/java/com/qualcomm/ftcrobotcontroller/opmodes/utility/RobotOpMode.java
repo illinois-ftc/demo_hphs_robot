@@ -16,11 +16,7 @@ public abstract class RobotOpMode<T extends RobotHardware> extends OpMode {
      */
     protected T robot;
 
-    /**
-     * Initializes <code>robot</code>, and then calls <code>initializeRobot()</code>.
-     */
-    @Override
-    public void init() {
+    public RobotOpMode(){
         try {
             robot = (T) ((Class)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[0]).newInstance();
         } catch (InstantiationException e) {
@@ -28,6 +24,13 @@ public abstract class RobotOpMode<T extends RobotHardware> extends OpMode {
         } catch (IllegalAccessException e) {
             //handle error
         }
+    }
+
+    /**
+     * Initializes <code>robot</code>, and then calls <code>initializeRobot()</code>.
+     */
+    @Override
+    public void init() {
         robot.instantiateHardware(hardwareMap);
 
         initializeRobot();

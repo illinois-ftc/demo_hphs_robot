@@ -14,6 +14,7 @@ public @interface ActiveOpMode {
     /**
      * The name of the op mode.
      * This is displayed on the driver station.
+     * If empty, the name of the op mode class will be used.
      */
-    String value();
+    String value() default "";
 }

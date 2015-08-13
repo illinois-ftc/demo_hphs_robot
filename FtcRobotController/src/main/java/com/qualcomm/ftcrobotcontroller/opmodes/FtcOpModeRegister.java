@@ -71,6 +71,9 @@ public class FtcOpModeRegister implements OpModeRegister {
                 if(currentClass.isAnnotationPresent(activeClass)) {
                     Annotation annotation = currentClass.getAnnotation(activeClass);
                     String name = ((ActiveOpMode) annotation).value();
+                    if(name.length() == 0) {
+                        name = currentClass.getSimpleName();
+                    }
                     manager.register(name, currentClass);
                 }
             }
